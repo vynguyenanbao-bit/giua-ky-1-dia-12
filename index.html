@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ôn tập Địa lý 12 - Trắc nghiệm 4 lựa chọn & Đúng/Sai</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+        body {
+            background: linear-gradient(145deg, #e7f0ed 0%, #d0e0db 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 24px 16px;
+        }
+        .quiz-container {
+            max-width: 1000px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 36px;
+            box-shadow: 0 20px 40px rgba(0, 40, 30, 0.15), 0 8px 20px rgba(0, 0, 0, 0.08);
+            padding: 32px 36px;
+            transition: all 0.2s;
+            border: 1px solid rgba(30, 100, 80, 0.2);
+        }
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0b3b2c;
+            text-align: center;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        h1 span {
+            background: #1e6b50;
+            color: #fff;
+            font-size: 1rem;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-weight: 500;
+        }
+        .subhead {
+            text-align: center;
+            color: #2b5d4b;
+            font-style: italic;
+            margin-bottom: 28px;
+            font-size: 1rem;
+            border-bottom: 2px dashed #a8cfc0;
+            padding-bottom: 16px;
+        }
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1a4e3d;
+            margin: 28px 0 16px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title i {
+            font-size: 1.5rem;
+        }
+        .section-title span {
+            background: #e0f0e9;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #1a4e3d;
+        }
+        .question-card {
+            background: #f9fffc;
+            border-left: 6px solid #2a8b6c;
+            border-radius: 20px;
+            padding: 22px 24px;
+            margin-bottom: 22px;
+            box-shadow: 0 4px 10px rgba(0, 30, 20, 0.04);
+            transition: 0.15s;
+        }
+        .question-card:hover {
+            background: #f4fef9;
+            box-shadow: 0 6px 14px rgba(30, 100, 80, 0.1);
+        }
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #0c2e22;
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .option {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 10px 16px;
+            border: 1.5px solid #d3e7df;
+            cursor: pointer;
+            transition: 0.12s;
+            font-size: 1rem;
+            color: #173e31;
+        }
+        .option:hover {
+            background: #e4f5ee;
+            border-color: #4aa384;
+        }
+        .option input[type="radio"] {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #6b9e8b;
+            border-radius: 50%;
+            margin-top: 2px;
+            transition: 0.1s;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+        .option input[type="radio"]:checked {
+            border: 5px solid #1b7c5e;
+            background: #fff;
+        }
+        .option.correct-highlight {
+            background: #d4f0e4;
+            border-color: #0d8b60;
+        }
+        .option.wrong-highlight {
+            background: #ffe1de;
+            border-color: #c24e3e;
+        }
+        .tf-block {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 16px 20px;
+            margin-top: 6px;
+            border: 1.5px solid #cbe4da;
+        }
+        .tf-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0f0e9;
+            gap: 16px;
+        }
+        .tf-item:last-child {
+            border-bottom: none;
+        }
+        .tf-statement {
+            flex: 1;
+            font-size: 0.98rem;
+            color: #1f4a3a;
+            line-height: 1.5;
+        }
+        .tf-buttons {
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        .tf-btn {
+            background: #edf7f3;
+            border: 1.5px solid #b8d9cd;
+            border-radius: 30px;
+            padding: 6px 18px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #25624b;
+            cursor: pointer;
+            transition: 0.1s;
+            min-width: 64px;
+            text-align: center;
+        }
+        .tf-btn:hover {
+            background: #d4ece3;
+        }
+        .tf-btn.selected {
+            background: #1e6b50;
+            color: white;
+            border-color: #1e6b50;
+        }
+        .tf-btn.correct-tf {
+            background: #208a62;
+            color: white;
+            border-color: #208a62;
+        }
+        .tf-btn.wrong-tf {
+            background: #c24e3e;
+            color: white;
+            border-color: #c24e3e;
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 18px;
+            background: #1b5e47;
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 60px;
+            margin-top: 32px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: 0.15s;
+            box-shadow: 0 10px 20px -8px rgba(20, 80, 60, 0.5);
+        }
+        .btn-submit:hover {
+            background: #0f4633;
+            transform: scale(1.005);
+        }
+        .btn-submit:active {
+            transform: scale(0.99);
+        }
+        .score-board {
+            background: #e5f3ed;
+            border-radius: 40px;
+            padding: 18px 24px;
+            margin-top: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-weight: 600;
+            border: 1px solid #a6cdbc;
+        }
+        .score-text {
+            font-size: 1.2rem;
+            color: #124d37;
+        }
+        .score-text span {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #0b3b2c;
+            background: #ffffffd0;
+            padding: 0 16px;
+            border-radius: 30px;
+            margin-left: 8px;
+        }
+        .feedback-msg {
+            font-size: 1rem;
+            color: #2a6b50;
+            font-style: italic;
+        }
+        .reset-btn {
+            background: #cfe3db;
+            border: none;
+            border-radius: 40px;
+            padding: 10px 26px;
+            font-weight: 600;
+            color: #1b4e3b;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+        .reset-btn:hover {
+            background: #b8d9cb;
+        }
+        .info-note {
+            font-size: 0.85rem;
+            color: #467a66;
+            text-align: center;
+            margin-top: 12px;
+        }
+        hr {
+            border: none;
+            border-top: 2px dotted #b3d9cb;
+            margin: 28px 0 8px;
+        }
+        @media (max-width: 650px) {
+            .quiz-container { padding: 22px 16px; }
+            h1 { font-size: 1.5rem; flex-wrap: wrap; }
+            .tf-item { flex-direction: column; align-items: flex-start; }
+            .tf-buttons { width: 100%; justify-content: flex-end; }
+        }
+    </style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>🌏 Ôn tập Địa lý 12 <span>Bài 1,2,3,5</span></h1>
+    <div class="subhead">Trắc nghiệm 4 phương án & Đúng/Sai – Mã đề 005</div>
+
+    <!-- PHẦN I: TRẮC NGHIỆM 4 LỰA CHỌN -->
+    <div class="section-title">📌 I. TRẮC NGHIỆM NHIỀU PHƯƠNG ÁN (12 câu)</div>
+    <div id="part1"></div>
+
+    <!-- PHẦN II: ĐÚNG / SAI -->
+    <div class="section-title">✅ II. TRẮC NGHIỆM ĐÚNG / SAI (4 câu)</div>
+    <div id="part2"></div>
+
+    <button class="btn-submit" id="submitBtn">CHẤM ĐIỂM</button>
+
+    <div class="score-board" id="scoreBoard">
+        <div class="score-text">Điểm: <span id="scoreDisplay">0</span></div>
+        <div class="feedback-msg" id="feedbackMsg"></div>
+        <button class="reset-btn" id="resetBtn">↻ Làm lại</button>
+    </div>
+    <div class="info-note">* Mỗi câu trắc nghiệm đúng 0,5 điểm; mỗi ý đúng/sai đúng 0,125 điểm (tổng 2,0 điểm phần II)</div>
+</div>
+
+<script>
+    // ---------- DỮ LIỆU CÂU HỎI ----------
+    // Phần I: 12 câu trắc nghiệm 4 lựa chọn
+    const part1Questions = [
+        {
+            id: 1,
+            text: "Vị trí địa lý của Việt Nam nằm hoàn toàn trong vùng nội chí tuyến Bắc bán cầu là nguyên nhân chủ yếu làm cho thiên nhiên nước ta có đặc điểm nào sau đây?",
+            options: ["A. Cảnh quan thiên nhiên phân hóa theo độ cao rõ rệt.", "B. Cân bằng bức xạ quanh năm luôn dương, góc chiếu Mặt Trời lớn.", "C. Chịu tác động sâu sắc của các khối khí từ đại dương tràn vào.", "D. Có mạng lưới sông ngòi dày đặc và giàu phù sa."],
+            answer: 1 // B
+        },
+        {
+            id: 2,
+            text: "Đường biên giới quốc gia trên biển của Việt Nam được xác định là",
+            options: ["A. ranh giới ngoài của vùng nội thủy.", "B. ranh giới ngoài của vùng lãnh hải.", "C. ranh giới ngoài của vùng tiếp giáp lãnh hải.", "D. ranh giới ngoài của vùng đặc quyền kinh tế."],
+            answer: 1 // B
+        },
+        {
+            id: 3,
+            text: "Điểm cực Đông trên đất liền của nước ta thuộc địa phận hành chính của tỉnh/thành phố nào sau đây?",
+            options: ["A. Quảng Nam.", "B. Bình Định.", "C. Khánh Hòa.", "D. Ninh Thuận."],
+            answer: 2 // C
+        },
+        {
+            id: 4,
+            text: "Loại gió hoạt động chủ yếu từ tháng 11 đến tháng 4 năm sau ở khu vực từ dãy Bạch Mã trở vào Nam là",
+            options: ["A. Gió mùa Đông Bắc.", "B. Tín phong bán cầu Bắc.", "C. Gió mùa Tây Nam.", "D. Gió Tín phong bán cầu Nam."],
+            answer: 1 // B
+        },
+        {
+            id: 5,
+            text: "Gió mùa Đông Bắc khi di chuyển qua biển vào nửa sau mùa đông (tháng 2 - 4) gây nên hiện tượng thời tiết đặc trưng nào cho khu vực Đông Bắc và Đồng bằng Bắc Bộ?",
+            options: ["A. Nắng nóng gay gắt và hạn hán kéo dài.", "B. Thời tiết hanh khô, nhiệt độ giảm sâu.", "C. Lạnh ẩm, có mưa phun kéo dài.", "D. Mưa rào và giông bão trên diện rộng."],
+            answer: 2 // C
+        },
+        {
+            id: 6,
+            text: "Quá trình feralit là quá trình hình thành đất đặc trưng ở vùng đồi núi nước ta chủ yếu do nguyên nhân nào sau đây?",
+            options: ["A. Khí hậu nhiệt đới ẩm gió mùa và địa hình chủ yếu là đồi núi thấp.", "B. Địa hình đồng bằng chiếm phần lớn diện tích với nguồn phù sa giàu có.", "C. Khí hậu cận xích đạo khô hạn và địa hình núi cao bị cắt xẻ mạnh.", "D. Tác động của gió mùa Đông Bắc kết hợp với biên độ nhiệt năm nhỏ."],
+            answer: 0 // A
+        },
+        {
+            id: 7,
+            text: "Dãy núi nào sau đây đóng vai trò là ranh giới tự nhiên phân chia thiên nhiên nước ta thành phần lãnh thổ phía Bắc và phần lãnh thổ phía Nam?",
+            options: ["A. Dãy Hoàng Liên Sơn.", "B. Dãy Hoành Sơn.", "C. Dãy Bạch Mã.", "D. Dãy Trường Sơn Nam."],
+            answer: 2 // C
+        },
+        {
+            id: 8,
+            text: "Đai cận nhiệt đới gió mùa trên núi ở nước ta (ở miền Bắc từ độ cao 600 - 700 m đến 2600 m) có đặc điểm thổ nhưỡng đặc trưng là",
+            options: ["A. Đất feralit đỏ vàng hình thành trên đá phiến.", "B. Đất mùn thô trên đỉnh núi cao.", "C. Đất feralit có mùn và đất mùn.", "D. Đất phù sa cổ và phù sa mới."],
+            answer: 2 // C
+        },
+        {
+            id: 9,
+            text: "Vùng biển nước ta mà tại đó Nhà nước ta thực hiện chủ quyền hoàn toàn, tuyệt đối như trên đất liền được gọi là",
+            options: ["A. Nội thủy.", "B. Lãnh hải.", "C. Vùng tiếp giáp lãnh hải.", "D. Vùng đặc quyền kinh tế."],
+            answer: 0 // A
+        },
+        {
+            id: 10,
+            text: "Gió mùa Tây Nam hoạt động vào đầu mùa hạ (tháng 5 - 7) xuất phát từ khối khí nhiệt đới ẩm Bắc Ấn Độ Dương gây mưa lớn cho khu vực nào của nước ta?",
+            options: ["A. Đồng bằng Bắc Bộ và Bắc Trung Bộ.", "B. Tây Nguyên và Nam Bộ.", "C. Duyên hải Nam Trung Bộ và Tây Bắc.", "D. Đông Bắc và Trung Trung Bộ."],
+            answer: 1 // B
+        },
+        {
+            id: 11,
+            text: "Sự phân hóa thiên nhiên theo chiều Đông - Tây ở vùng đồi núi nước ta thể hiện rõ nét nhất qua sự đối lập khí hậu giữa hai vùng nào sau đây?",
+            options: ["A. Đông Bắc và Bắc Trung Bộ.", "B. Tây Bắc và Đồng bằng Bắc Bộ.", "C. Đông Trường Sơn và Tây Nguyên.", "D. Tây Nguyên và Nam Bộ."],
+            answer: 2 // C
+        },
+        {
+            id: 12,
+            text: "Cảnh quan thiên nhiên tiêu biểu cho phần lãnh thổ phía Nam (từ dãy Bạch Mã trở vào) là",
+            options: ["A. Đới rừng nhiệt đới gió mùa với động vật đới lạnh.", "B. Đới rừng cận xích đạo gió mùa với thành phần loài sinh vật nhiệt đới và xích đạo.", "C. Đới rừng cận nhiệt đới lá rộng thường xanh.", "D. Đới rừng ôn đới gió mùa lá kim."],
+            answer: 1 // B
+        }
+    ];
+
+    // Phần II: 4 câu đúng/sai, mỗi câu 4 ý
+    const part2Questions = [
+        {
+            id: 1,
+            text: "Cho đoạn thông tin: \"Việt Nam nằm ở rìa phía đông của bán đảo Đông Dương, tiếp giáp với Biển Đông rộng lớn. Vị trí địa lý và phạm vi lãnh thổ đã quy định đặc điểm cơ bản của thiên nhiên Việt Nam mang tính chất nhiệt đới ẩm gió mùa, đồng thời tạo ra sự phân hóa đa dạng về tự nhiên giữa các vùng miền.\"",
+            statements: [
+                { text: "a) Vị trí nội chí tuyến Bắc bán cầu là nguyên nhân quy định nhiệt độ trung bình năm của nước ta cao và cân bằng bức xạ luôn dương.", correct: true },
+                { text: "b) Đường ranh giới ngoài của vùng lãnh hải (cách đường cơ sở 12 hải lý) chính là đường biên giới quốc gia trên biển của Việt Nam.", correct: true },
+                { text: "c) Do nằm trên đường di lưu và di cư của nhiều sinh vật nên sinh vật nước ta rất phong phú nhưng lại thiếu các loài sinh vật cận nhiệt.", correct: false },
+                { text: "d) Vùng đặc quyền kinh tế của nước ta có chiều rộng 200 hải lý được tính từ ranh giới ngoài của vùng lãnh hải về phía biển.", correct: false }
+            ]
+        },
+        {
+            id: 2,
+            text: "Cho đoạn thông tin: \"Khí hậu Việt Nam chịu sự tác động sâu sắc của các cơ chế gió mùa. Vào mùa đông, sự xuất hiện của khối khí lạnh từ lục địa châu Á tràn xuống kết hợp với địa hình làm cho thời tiết miền Bắc có những nét đặc thù. Vào mùa hạ, các luồng gió từ đại dương thổi vào lại mang đến nguồn mưa lớn trên toàn lãnh thổ.\"",
+            statements: [
+                { text: "a) Gió mùa Đông Bắc khiến cho phần lãnh thổ phía Bắc có một mùa đông lạnh với 3 - 4 tháng nhiệt độ trung bình dưới 18°C.", correct: true },
+                { text: "b) Hiện tượng phơn khô nóng ở vùng Bắc Trung Bộ vào đầu mùa hạ phát sinh do luồng gió mùa Tây Nam khi vượt qua dãy Trường Sơn bị biến tính.", correct: true },
+                { text: "c) Biên độ nhiệt trung bình năm ở phần lãnh thổ phía Bắc nhỏ hơn phần lãnh thổ phía Nam do miền Bắc chịu ảnh hưởng mạnh của gió mùa Đông Bắc.", correct: false },
+                { text: "d) Khu vực Duyên hải Nam Trung Bộ có mùa mưa lệch về thu - đông do tác động của gió hướng đông bắc kết hợp với dải hội tụ nhiệt đới và bão.", correct: true }
+            ]
+        },
+        {
+            id: 3,
+            text: "Cho đoạn thông tin: \"Sự phân hóa thiên nhiên theo độ cao ở nước ta rất rõ rệt do địa hình đồi núi chiếm ưu thế. Từ thấp lên cao, sinh vật và thổ nhưỡng có sự thay đổi tương ứng theo các đai cao khí hậu, tạo nên các hệ sinh thái đặc trưng.\"",
+            statements: [
+                { text: "a) Đai nhiệt đới gió mùa chân núi có độ cao giới hạn ở miền Bắc thấp hơn (dưới 600 - 700 m) so với ở miền Nam (dưới 900 - 1000 m).", correct: true },
+                { text: "b) Đất feralit có mùn hình thành phổ biến ở đai ôn đới gió mùa trên núi từ độ cao trên 2600 m.", correct: false },
+                { text: "c) Thành phần sinh vật ở đai cận nhiệt đới gió mùa trên núi bắt đầu xuất hiện các loài chim, thú có lông dày và các cây cận nhiệt như dẻ, re.", correct: true },
+                { text: "d) Quá trình feralit là quá trình thành tạo đất chính ở đai nhiệt đới gió mùa chân núi.", correct: true }
+            ]
+        },
+        {
+            id: 4,
+            text: "Cho đoạn thông tin: \"Đất Feralit là nhóm đất chiếm diện tích lớn nhất ở nước ta, tập trung chủ yếu ở vùng đồi núi thấp. Sự hình thành nhóm đất này gắn liền với khí hậu nhiệt đới ẩm gió mùa và quá trình phong hóa hóa học diễn ra mạnh mẽ.\"",
+            statements: [
+                { text: "a) Đất feralit thường có màu đỏ vàng do sự tích tụ oxit sắt (Fe₂O₃) và oxit nhôm (Al₂O₃).", correct: true },
+                { text: "b) Quá trình rửa trôi các chất bazo (Ca²⁺, Mg²⁺, K⁺) diễn ra mạnh làm cho đất feralit ở nước ta nhìn chung có tính chất chua.", correct: true },
+                { text: "c) Loại đất feralit giàu chất dinh dưỡng và tốt nhất cho phát triển cây công nghiệp lâu năm ở nước ta là đất feralit trên đá vôi phân bố rộng khắp Nam Bộ.", correct: false },
+                { text: "d) Biện pháp quan trọng nhất để chống suy thoái đất feralit vùng đồi núi là đẩy mạnh làm ruộng bậc thang, trồng rừng và bảo vệ lớp phủ thực vật.", correct: true }
+            ]
+        }
+    ];
+
+    // ---------- RENDER GIAO DIỆN ----------
+    const part1Div = document.getElementById('part1');
+    const part2Div = document.getElementById('part2');
+
+    // Render phần I
+    part1Questions.forEach((q, idx) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        card.dataset.qid = q.id;
+        card.innerHTML = `<div class="question-text">Câu ${idx + 1}. ${q.text}</div>`;
+        const optionsDiv = document.createElement('div');
+        optionsDiv.className = 'options';
+        q.options.forEach((opt, optIdx) => {
+            const label = document.createElement('label');
+            label.className = 'option';
+            label.dataset.optIndex = optIdx;
+            const radio = document.createElement('input');
+            radio.type = 'radio';
+            radio.name = `q${q.id}`;
+            radio.value = optIdx;
+            radio.dataset.qid = q.id;
+            label.appendChild(radio);
+            const span = document.createElement('span');
+            span.textContent = opt;
+            label.appendChild(span);
+            optionsDiv.appendChild(label);
+        });
+        card.appendChild(optionsDiv);
+        part1Div.appendChild(card);
+    });
+
+    // Render phần II
+    part2Questions.forEach((q, idx) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        card.dataset.tfid = q.id;
+        card.innerHTML = `<div class="question-text">Câu ${idx + 1}. ${q.text}</div>`;
+        const block = document.createElement('div');
+        block.className = 'tf-block';
+        q.statements.forEach((stmt, sIdx) => {
+            const item = document.createElement('div');
+            item.className = 'tf-item';
+            item.dataset.stmtIndex = sIdx;
+            item.dataset.tfid = q.id;
+            const stmtSpan = document.createElement('div');
+            stmtSpan.className = 'tf-statement';
+            stmtSpan.textContent = stmt.text;
+            const btnGroup = document.createElement('div');
+            btnGroup.className = 'tf-buttons';
+            const btnTrue = document.createElement('button');
+            btnTrue.className = 'tf-btn';
+            btnTrue.textContent = 'Đúng';
+            btnTrue.dataset.value = 'true';
+            btnTrue.dataset.tfid = q.id;
+            btnTrue.dataset.stmtIndex = sIdx;
+            const btnFalse = document.createElement('button');
+            btnFalse.className = 'tf-btn';
+            btnFalse.textContent = 'Sai';
+            btnFalse.dataset.value = 'false';
+            btnFalse.dataset.tfid = q.id;
+            btnFalse.dataset.stmtIndex = sIdx;
+            btnGroup.appendChild(btnTrue);
+            btnGroup.appendChild(btnFalse);
+            item.appendChild(stmtSpan);
+            item.appendChild(btnGroup);
+            block.appendChild(item);
+        });
+        card.appendChild(block);
+        part2Div.appendChild(card);
+    });
+
+    // ---------- XỬ LÝ CHỌN ĐÁP ÁN ----------
+    // Lưu trạng thái đúng/sai đã chọn cho từng ý
+    const tfSelections = {}; // key: `${tfid}_${stmtIndex}` -> value: true/false
+
+    // Gắn sự kiện cho nút Đúng/Sai
+    part2Div.querySelectorAll('.tf-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const tfid = btn.dataset.tfid;
+            const stmtIdx = btn.dataset.stmtIndex;
+            const value = btn.dataset.value === 'true'; // true nếu Đúng, false nếu Sai
+            const key = `${tfid}_${stmtIdx}`;
+
+            // Xóa selected trên cả 2 nút cùng cặp
+            const parentItem = btn.closest('.tf-item');
+            parentItem.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+
+            // Lưu lựa chọn
+            tfSelections[key] = value;
+        });
+    });
+
+    // Xử lý chấm điểm
+    document.getElementById('submitBtn').addEventListener('click', () => {
+        // Xóa highlight cũ
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('correct-highlight', 'wrong-highlight'));
+        document.querySelectorAll('.tf-btn').forEach(btn => btn.classList.remove('correct-tf', 'wrong-tf'));
+
+        let totalScore = 0;
+        let part1Score = 0;
+        let part2Score = 0;
+
+        // Chấm phần I
+        part1Questions.forEach((q, idx) => {
+            const radios = document.querySelectorAll(`input[name="q${q.id}"]`);
+            let selectedIdx = -1;
+            radios.forEach(r => { if (r.checked) selectedIdx = parseInt(r.value); });
+            const questionCard = document.querySelector(`.question-card[data-qid="${q.id}"]`);
+            const optionLabels = questionCard.querySelectorAll('.option');
+
+            // Highlight đáp án đúng luôn
+            optionLabels.forEach((label, optIdx) => {
+                if (optIdx === q.answer) {
+                    label.classList.add('correct-highlight');
+                }
+            });
+
+            if (selectedIdx !== -1) {
+                if (selectedIdx === q.answer) {
+                    part1Score += 0.5;
+                } else {
+                    // Highlight sai đã chọn
+                    optionLabels[selectedIdx]?.classList.add('wrong-highlight');
+                }
+            }
+        });
+
+        // Chấm phần II
+        part2Questions.forEach(q => {
+            q.statements.forEach((stmt, sIdx) => {
+                const key = `${q.id}_${sIdx}`;
+                const selected = tfSelections[key]; // true/false/undefined
+                const correct = stmt.correct;
+                const item = document.querySelector(`.tf-item[data-tfid="${q.id}"][data-stmt-index="${sIdx}"]`);
+                const btns = item.querySelectorAll('.tf-btn');
+                const btnTrue = btns[0]; // Đúng
+                const btnFalse = btns[1]; // Sai
+
+                // Reset màu
+                btnTrue.classList.remove('correct-tf', 'wrong-tf');
+                btnFalse.classList.remove('correct-tf', 'wrong-tf');
+
+                // Đánh dấu đáp án đúng
+                if (correct === true) {
+                    btnTrue.classList.add('correct-tf');
+                } else {
+                    btnFalse.classList.add('correct-tf');
+                }
+
+                // Nếu có chọn và chọn sai -> bôi đỏ nút đã chọn
+                if (selected !== undefined) {
+                    if (selected !== correct) {
+                        // Chọn sai, nút đã chọn sai
+                        if (selected === true) btnTrue.classList.add('wrong-tf');
+                        else btnFalse.classList.add('wrong-tf');
+                    } else {
+                        // Chọn đúng, cộng điểm
+                        part2Score += 0.125;
+                    }
+                }
+                // nếu không chọn -> không cộng
+            });
+        });
+
+        // Tổng điểm: phần I tối đa 6.0, phần II tối đa 2.0 => tổng 8.0 nhưng thang điểm 10?
+        // File gốc: phần I 6.0đ (12 câu * 0.5) ; phần II 2.0đ (16 ý *0.125) => tổng 8.0. Nhưng đề ghi 6+2=8?
+        // Thực tế đề ghi I. 6,0đ , II. 2,0đ -> tổng 8 điểm. Có thể do nhầm lẫn, nhưng giữ nguyên thang 8.
+        // Hoặc có thể phần I 6đ, phần II 2đ, nhưng tổng 8. Thang điểm 8. Hiển thị điểm /8.
+        const finalScore = part1Score + part2Score;
+        const maxScore = 6.0 + 2.0; // 8.0
+
+        document.getElementById('scoreDisplay').innerText = finalScore.toFixed(2) + ' / ' + maxScore.toFixed(1);
+        let feedback = '';
+        if (finalScore >= 7.5) feedback = '🌟 Xuất sắc!';
+        else if (finalScore >= 6.0) feedback = '👍 Khá tốt!';
+        else if (finalScore >= 4.0) feedback = '📚 Cần cố gắng thêm.';
+        else feedback = '📖 Hãy ôn lại kiến thức.';
+        document.getElementById('feedbackMsg').innerText = feedback;
+    });
+
+    // Reset
+    document.getElementById('resetBtn').addEventListener('click', () => {
+        // Xóa radio
+        document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+        // Xóa selected đúng/sai và highlight
+        document.querySelectorAll('.tf-btn').forEach(btn => btn.classList.remove('selected', 'correct-tf', 'wrong-tf'));
+        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('correct-highlight', 'wrong-highlight'));
+        // Xóa lưu trạng thái
+        for (let key in tfSelections) delete tfSelections[key];
+        // Reset điểm
+        document.getElementById('scoreDisplay').innerText = '0';
+        document.getElementById('feedbackMsg').innerText = '';
+    });
+
+    // Khởi tạo điểm 0
+    document.getElementById('scoreDisplay').innerText = '0';
+</script>
+</body>
+</html>
